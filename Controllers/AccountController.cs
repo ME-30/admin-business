@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication7.BL.Halper;
 //using WebApplication7.BL.Helper;
 using WebApplication7.Models;
 
@@ -104,8 +105,77 @@ namespace WebApplication7.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
 
-       
+                if (user != null)
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var passwordResetLink = Url.Action("ResetPassword", "Account", new { Email = model.Email, Token = token }, Request.Scheme);
+                    MailHalper.sendMailResetPassword( "Reset Password Link", passwordResetLink);
+
+                    logger.Log(LogLevel.Warning, passwordResetLink);
+
+                    return RedirectToAction("ConfirmForfetPassword");
+                }
+
+                return RedirectToAction("ConfirmForfetPassword");
 
             }
+
+            return View(model);
+        }
+
+        public IActionResult ConfirmForfetPassword()
+        {
+            return View();
+        }
+        public IActionResult ResetPassword(string Email , string Token)
+        {
+            if (Email == null || Token == null)
+            {
+                ModelState.AddModelError("", "invaled Data");
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+                    var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Login");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(model);
+                }
+
+                return RedirectToAction("Login");
+            }
+
+            return View(model);
+        }
+
+
+
+    }
 }

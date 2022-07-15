@@ -8,9 +8,12 @@ using WebApplication7.DAL.Database;
 using WebApplication7.Models;
 using System.Diagnostics;
 using WebApplication7.BL.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication7.Controllers
 {
+    [Authorize]
+
     public class DepartmentController : Controller
     {
 
@@ -123,6 +126,18 @@ namespace WebApplication7.Controllers
                 return View();
             }
         }
+
+        public IActionResult Details(int id)
+        {
+            var data = department.GetById(id);
+   
+
+            return View(data);
+        }
+
+       
+      
+
 
 
     }

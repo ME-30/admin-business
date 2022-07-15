@@ -6,6 +6,11 @@
 
 <h2>Edit Employee</h2>
 
+<br />
+
+<a asp-controller="Employee" asp-action="Index" class="btn btn-primary"> Back to list</a>
+
+<br />
 
 
 <form asp-controller="Employee" asp-action="Edit" method="post" class="form-group">
@@ -55,6 +60,21 @@
         <label class="custom-control-label" asp-for="IsActive"> Is Active</label>
     </div>
     <span class="text-danger" asp-validation-for="IsActive"></span>
+
+      
+    <br /><br />
+
+    <img src="~/Files/photes/@Model.PhotoName" width="70" height="70" />
+    <br />
+    <label class="custom-control-label" asp-for="PhotoName"> Edit Photo</label>
+    <input type="file" asp-for="PhotoName" class="custom-control-input">
+
+    <br /><br />
+    <a href="~/Files/docs/@Model.CvName">Download CV</a>
+    <br /><br />
+    <label class="custom-control-label" asp-for="CvName"> Edit CV</label>
+    <input type="file" asp-for="CvName" class="custom-control-input">
+
 
     <br />
     <center>

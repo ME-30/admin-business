@@ -28,6 +28,11 @@ namespace WebApplication7.DAL.Entities
         public bool IsActive { get; set; }
 
         public string Notes { get; set; }
+        public string PhotoName { get; set; }
+
+        public string CvName { get; set; }
+
+
 
         public int DepartmentId { get; set; }
 

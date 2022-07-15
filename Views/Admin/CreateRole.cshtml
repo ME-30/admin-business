@@ -1,0 +1,38 @@
+﻿@model WebApplication7.Models.CreateRole
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Views/Layout/MainLayout.cshtml";
+}
+
+<h2>CreateRole</h2>
+
+    <div class="signup-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Admin<b>BSB</b></a>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form asp-controller="Admin" asp-action="CreateRole" method="POST">
+                    <div class="msg">Create New Role</div>
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="Text" class="form-control" placeholder="Email Role Name" asp-for="RoleName">
+                        </div>
+                        <div class="">
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+                    </div>
+                
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">Create</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    

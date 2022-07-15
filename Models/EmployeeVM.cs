@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication7.Models
 {
@@ -31,6 +32,11 @@ namespace WebApplication7.Models
 
         public string Notes { get; set; }
 
-        public string DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+        public IFormFile photoUrl { get; set; }
+        public IFormFile CvUrl { get; set; }
+        public string PhotoName { get; set; }
+        public string CvName { get; set; }
     }
 }

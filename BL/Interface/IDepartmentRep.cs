@@ -13,5 +13,6 @@ namespace WebApplication7.BL.Interface
         void Add(DepartmentVM dpt);
         void Edit(DepartmentVM dpt);
         void Delete(int id);
+
     }
 }

@@ -43,7 +43,11 @@ namespace WebApplication7
                 options.Password.RequiredLength = 3;
                 options.Password.RequiredUniqueChars = 0;
 
-            }).AddEntityFrameworkStores<DbContainer>();
+            }).AddEntityFrameworkStores<DbContainer>().AddEntityFrameworkStores<DbContainer>()
+              
+
+                .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider);
+
 
 
             services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
@@ -51,8 +55,9 @@ namespace WebApplication7
           
             services.AddScoped<IDepartmentRep,DepartmentRep>();
             services.AddScoped<IEmployeeRep, EmployeeRep>();
+            services.AddScoped<IMailRep,MailRep > ();
 
-           
+
 
         }
 
@@ -69,6 +74,8 @@ namespace WebApplication7
             app.UseStaticFiles();
 
             app.UseRouting();
+
+
             app.UseAuthentication();
 
 
@@ -78,7 +85,7 @@ namespace WebApplication7
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=index}/{id?}");
             });
         }
     }

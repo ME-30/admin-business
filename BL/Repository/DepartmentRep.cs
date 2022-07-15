@@ -77,6 +77,7 @@ namespace WebApplication7.BL.Repository
                        .Select(a => new DepartmentVM { Id = a.Id, DepartmentName = a.DepartmentName, DepartmentCode = a.DepartmentCode });
         }
 
+      
     }
 
    

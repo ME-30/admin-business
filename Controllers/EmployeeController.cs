@@ -7,9 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication7.BL.Interface;
 using WebApplication7.Models;
+using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using WebApplication7.BL.Halper;
 
 namespace WebApplication7.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
 
@@ -33,6 +37,7 @@ namespace WebApplication7.Controllers
 
         public IActionResult Create()
         {
+
             var data = department.Get();
 
             ViewBag.DepartmentList = new SelectList(data, "Id", "DepartmentName");
@@ -47,6 +52,7 @@ namespace WebApplication7.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     employee.Add(emp);
                     return RedirectToAction("Index", "Employee");
                 }
@@ -86,6 +92,14 @@ namespace WebApplication7.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    //if (emp.CvUrl != null && emp.photoUrl != null)
+                    //{
+                    //    uploadFilesHelper.RemoveFile("docs/", emp.CvName);
+                    //    emp.CvName = uploadFilesHelper.SaveFile(emp.CvUrl, "docs/");
+
+                    //    uploadFilesHelper.RemoveFile("photos/", emp.PhotoName);
+                    //    emp.PhotoName = uploadFilesHelper.SaveFile(emp.photoUrl, "photes/");
+                    //}
                     employee.Edit(emp);
                     return RedirectToAction("Index", "Employee");
                 }
@@ -138,6 +152,17 @@ namespace WebApplication7.Controllers
 
                 return View();
             }
+        }
+
+        public IActionResult Details(int id)
+        {
+            var data = employee.GetById(id);
+            var Dptdata = department.Get();
+          
+
+            ViewBag.DepartmentList = new SelectList(Dptdata, "Id", "DepartmentName", data.DepartmentId);
+
+            return View(data);
         }
     }
 }

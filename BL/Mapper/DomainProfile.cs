@@ -20,6 +20,10 @@ namespace WebApplication7.BL.Mapper
             CreateMap<Employee, EmployeeVM>();
             CreateMap<EmployeeVM, Employee>();
 
+
+            CreateMap<Mail, MailVM>();
+            CreateMap<MailVM, Mail>();
+
         }
 
     }
